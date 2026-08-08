@@ -107,10 +107,20 @@ header a {
     }
 
     .cart {
-        height: 230px;
+        height: auto;
+    }
+
+    .cart img {
+        height: auto;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
     }
 
     .cart .info {
+        position: static;
+        width: 100%;
+        background: #d7d7d7;
+        color: #111;
         padding: 8px 10px;
     }
 
@@ -143,12 +153,19 @@ header a {
     }
 
     .cart {
-        height: 210px;
         width: 100%;
     }
 
     .cart:hover {
         transform: none;
+    }
+
+    .cart img {
+        aspect-ratio: 16 / 10;
+    }
+
+    .cart .info {
+        padding: 9px 12px;
     }
 
     .cart .info h3 {
