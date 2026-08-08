@@ -8,6 +8,7 @@ body {
     font-family: Arial, sans-serif;
     background: #3c8527;
     padding: 20px;
+    overflow-x: hidden;
 }
 
 header {
@@ -23,10 +24,13 @@ header a {
 #text {
     text-align: center;
     margin-top: 10px;
+    margin-bottom: 20px;
+    line-height: 1.2;
 }
 
 .carts {
     width: 95%;
+    max-width: 1200px;
     margin: auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -34,7 +38,10 @@ header a {
 }
 
 .cart {
+    position: relative;
+    overflow: hidden;
     height: 300px;
+    min-width: 0;
     background: #d7d7d7;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
@@ -43,34 +50,6 @@ header a {
 
 .cart:hover {
     transform: translateY(-8px);
-}
-
-@media (max-width:768px) {
-    body {
-        padding: 10px;
-    }
-
-    .cart {
-        height: 220px;
-    }
-
-    #text {
-        font-size: 28px;
-    }
-}
-
-@media (max-width:480px) {
-    #text {
-        font-size: 22px;
-    }
-
-    .cart {
-        height: 180px;
-    }
-}
-.cart {
-    position: relative;
-    overflow: hidden;
 }
 
 .cart img {
@@ -87,15 +66,96 @@ header a {
     width: 100%;
     background: rgba(0, 0, 0, .6);
     color: #fff;
-    padding: 8px 12px;
+    padding: 10px 12px;
 }
 
 .cart .info h3 {
     font-size: 16px;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    line-height: 1.2;
 }
 
 .cart .info p {
     font-size: 14px;
     font-weight: bold;
+    line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 12px;
+    }
+
+    header {
+        margin-bottom: 16px;
+    }
+
+    header a {
+        font-size: 18px;
+    }
+
+    #text {
+        font-size: 28px;
+        margin-top: 8px;
+        margin-bottom: 18px;
+    }
+
+    .carts {
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .cart {
+        height: 230px;
+    }
+
+    .cart .info {
+        padding: 8px 10px;
+    }
+
+    .cart .info h3 {
+        font-size: 15px;
+    }
+
+    .cart .info p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    header a {
+        font-size: 17px;
+    }
+
+    #text {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
+    .carts {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .cart {
+        height: 210px;
+        width: 100%;
+    }
+
+    .cart:hover {
+        transform: none;
+    }
+
+    .cart .info h3 {
+        font-size: 16px;
+    }
+
+    .cart .info p {
+        font-size: 14px;
+    }
 }
