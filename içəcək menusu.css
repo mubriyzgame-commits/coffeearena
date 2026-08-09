@@ -45,23 +45,9 @@ header a {
     transform: translateY(-8px);
 }
 
-@media (max-width:768px) {
-    body {
-        padding: 10px;
-    }
-
+@media (max-width: 768px) {
     .carts {
         grid-template-columns: 1fr;
-    }
-
-    #text {
-        font-size: 28px;
-    }
-}
-
-@media (max-width:480px) {
-    #text {
-        font-size: 22px;
     }
 }
 
