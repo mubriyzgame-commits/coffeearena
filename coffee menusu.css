@@ -45,29 +45,12 @@ header a {
     transform: translateY(-8px);
 }
 
-@media (max-width:768px) {
-    body {
-        padding: 10px;
-    }
-
-    .cart {
-        height: 220px;
-    }
-
-    #text {
-        font-size: 28px;
+@media (max-width: 768px) {
+    .carts {
+        grid-template-columns: 1fr;
     }
 }
 
-@media (max-width:480px) {
-    #text {
-        font-size: 22px;
-    }
-
-    .cart {
-        height: 180px;
-    }
-}
 .cart {
     position: relative;
     overflow: hidden;
