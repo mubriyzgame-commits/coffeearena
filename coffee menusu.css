@@ -50,8 +50,8 @@ header a {
         padding: 10px;
     }
 
-    .carts {
-        grid-template-columns: 1fr;
+    .cart {
+        height: 220px;
     }
 
     #text {
@@ -63,8 +63,11 @@ header a {
     #text {
         font-size: 22px;
     }
-}
 
+    .cart {
+        height: 180px;
+    }
+}
 .cart {
     position: relative;
     overflow: hidden;
