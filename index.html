@@ -20,7 +20,7 @@
         </div>
       </a>
 
-      <a href="./içəcək menusu.html">
+      <a href="./icecek.html">
         <div class="cart">
           <h1>İçəcəklər</h1>
         </div>
@@ -35,15 +35,15 @@
 
     <script>
       function hit(key) {
-        fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_' + encodeURIComponent(key)).catch(() => {});
+        fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_' + encodeURIComponent(key)).catch(function(){});
       }
 
       hit('index');
 
-      const ua = navigator.userAgent.toLowerCase();
-      const isTablet = /ipad|tablet|android(?!.*mobile)/i.test(ua);
-      const isPhone = /iphone|ipod|android.*mobile/i.test(ua);
-      const isPC = !isTablet && !isPhone;
+      var ua = navigator.userAgent.toLowerCase();
+      var isTablet = /ipad|tablet|android(?!.*mobile)/i.test(ua);
+      var isPhone = /iphone|ipod|android.*mobile/i.test(ua);
+      var isPC = !isTablet && !isPhone;
 
       hit(isPhone ? 'type_phone' : isTablet ? 'type_tablet' : 'type_pc');
 
