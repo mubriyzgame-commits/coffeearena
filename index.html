@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coffee Arena</title>
     <link rel="stylesheet" href="./əsas səhifə.css" />
-    <script src="https://counterapi.com/c.js?ns=coffeearena" async></script>
   </head>
 
   <body>
@@ -34,45 +33,45 @@
       </a>
     </div>
 
-    <div class="counterapi" key="index" style="display:none"></div>
-
     <script>
-      function addCounter(key) {
-        const div = document.createElement('div');
-        div.className = 'counterapi';
-        div.setAttribute('key', key);
-        div.style.display = 'none';
-        document.body.appendChild(div);
+      function hit(key) {
+        fetch('https://counterapi.com/api/coffeearena/hit/' + encodeURIComponent(key)).catch(() => {});
       }
+
+      // Ümumi səhifə sayğacı
+      hit('index');
 
       const ua = navigator.userAgent.toLowerCase();
       const isTablet = /ipad|tablet|android(?!.*mobile)/i.test(ua);
       const isPhone = /iphone|ipod|android.*mobile/i.test(ua);
       const isPC = !isTablet && !isPhone;
 
-      addCounter(isPhone ? 'type_phone' : isTablet ? 'type_tablet' : 'type_pc');
+      // Cihaz tipi
+      hit(isPhone ? 'type_phone' : isTablet ? 'type_tablet' : 'type_pc');
 
-      if (/android/i.test(ua)) addCounter('os_android');
-      else if (/iphone|ipad|ipod/i.test(ua)) addCounter('os_ios');
-      else if (/windows/i.test(ua)) addCounter('os_windows');
-      else if (/mac os/i.test(ua)) addCounter('os_macos');
-      else if (/linux/i.test(ua)) addCounter('os_linux');
-      else addCounter('os_other');
+      // Əməliyyat sistemi
+      if (/android/i.test(ua)) hit('os_android');
+      else if (/iphone|ipad|ipod/i.test(ua)) hit('os_ios');
+      else if (/windows/i.test(ua)) hit('os_windows');
+      else if (/mac os/i.test(ua)) hit('os_macos');
+      else if (/linux/i.test(ua)) hit('os_linux');
+      else hit('os_other');
 
-      if (/iphone/i.test(ua)) addCounter('brand_iphone');
-      else if (/ipad/i.test(ua)) addCounter('brand_ipad');
-      else if (/samsung/i.test(ua)) addCounter('brand_samsung');
-      else if (/xiaomi|redmi|poco/i.test(ua)) addCounter('brand_xiaomi');
-      else if (/huawei|honor/i.test(ua)) addCounter('brand_huawei');
-      else if (/oppo/i.test(ua)) addCounter('brand_oppo');
-      else if (/vivo/i.test(ua)) addCounter('brand_vivo');
-      else if (/oneplus/i.test(ua)) addCounter('brand_oneplus');
-      else if (/pixel/i.test(ua)) addCounter('brand_google');
-      else if (/motorola/i.test(ua)) addCounter('brand_motorola');
-      else if (/sony/i.test(ua)) addCounter('brand_sony');
-      else if (/nokia/i.test(ua)) addCounter('brand_nokia');
-      else if (isPC) addCounter(/mac os/i.test(ua) ? 'brand_apple_pc' : 'brand_pc');
-      else addCounter('brand_other');
+      // Brend
+      if (/iphone/i.test(ua)) hit('brand_iphone');
+      else if (/ipad/i.test(ua)) hit('brand_ipad');
+      else if (/samsung/i.test(ua)) hit('brand_samsung');
+      else if (/xiaomi|redmi|poco/i.test(ua)) hit('brand_xiaomi');
+      else if (/huawei|honor/i.test(ua)) hit('brand_huawei');
+      else if (/oppo/i.test(ua)) hit('brand_oppo');
+      else if (/vivo/i.test(ua)) hit('brand_vivo');
+      else if (/oneplus/i.test(ua)) hit('brand_oneplus');
+      else if (/pixel/i.test(ua)) hit('brand_google');
+      else if (/motorola/i.test(ua)) hit('brand_motorola');
+      else if (/sony/i.test(ua)) hit('brand_sony');
+      else if (/nokia/i.test(ua)) hit('brand_nokia');
+      else if (isPC) hit(/mac os/i.test(ua) ? 'brand_apple_pc' : 'brand_pc');
+      else hit('brand_other');
     </script>
   </body>
 </html>
