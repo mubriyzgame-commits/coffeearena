@@ -5,17 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>İçəcək Menyusu</title>
     <link rel="stylesheet" href="./içəcək menusu.css" />
-    <script src="https://counterapi.com/c.js?ns=coffeearena" async></script>
   </head>
-
   <body>
     <header>
       <a href="./index.html">Geri</a>
       <h1 id="text">Milkşeyk təklif edirik!</h1>
     </header>
-
-    <div class="counterapi" key="menu_icecek" style="display:none"></div>
-
     <div class="carts">
       <div class="cart"><img src="./images (25).jpg" alt="Mojito" /><div class="info"><h3>Mojito</h3><p>4 Azn</p></div></div>
       <div class="cart"><img src="./images (26).jpg" alt="Mojito Siroplu" /><div class="info"><h3>Mojito Siroplu</h3><p>5 Azn</p></div></div>
@@ -43,5 +38,6 @@
       <div class="cart"><img src="./images (42).jpg" alt="Jagermaster kokteyl" /><div class="info"><h3>Jagermaster kokteyl</h3><p>7 Azn</p></div></div>
       <div class="cart"><img src="./images (43).jpg" alt="Jameson kokteyl" /><div class="info"><h3>Jameson kokteyl</h3><p>7 Azn</p></div></div>
     </div>
+    <script>fetch('https://api.counterapi.dev/v1/coffeearena/menu_icecek/up').catch(()=>{});</script>
   </body>
 </html>
