@@ -7,7 +7,7 @@
   <style>
     body{font-family:Arial,sans-serif;background:#3c8527;margin:0;padding:20px;min-height:100vh}
     .panel{background:white;padding:25px;border-radius:15px;max-width:600px;margin:auto;box-shadow:0 8px 25px rgba(0,0,0,.25)}
-    h1{margin-top:0}.section{margin-top:22px}.row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #ddd}.count{font-weight:bold}
+    h1{margin-top:0}.section{margin-top:22px}.row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #ddd}.count{font-weight:bold}.status{font-size:13px;color:#666;margin-top:12px}
   </style>
 </head>
 <body>
@@ -33,26 +33,33 @@
       <div class="row"><span>Linux</span><span id="linux" class="count">...</span></div>
     </div>
     <div class="section"><h2>📱 Marka / cihaz</h2><div id="brands"></div></div>
+    <div id="status" class="status">Yüklənir...</div>
   </div>
   <script>
     const NS='coffeearena';
     async function get(key){
       try{
-        const r=await fetch(`https://api.counterapi.dev/v1/${NS}/${key}/`);
+        const r=await fetch(`https://api.counterapi.dev/v1/${NS}/${encodeURIComponent(key)}/`);
+        if(!r.ok) throw new Error('API error');
         const d=await r.json();
-        return d.count ?? d.value ?? 0;
-      }catch{return 0;}
+        return typeof d.count==='number'?d.count:(typeof d.value==='number'?d.value:null);
+      }catch{return null;}
     }
     async function load(){
       const keys={total:'index',menu_yemek:'menu_yemek',menu_icecek:'menu_icecek',menu_coffee:'menu_coffee',phone:'type_phone',tablet:'type_tablet',pc:'type_pc',android:'os_android',ios:'os_ios',windows:'os_windows',macos:'os_macos',linux:'os_linux'};
-      await Promise.all(Object.entries(keys).map(async([id,key])=>document.getElementById(id).textContent=await get(key)));
+      await Promise.all(Object.entries(keys).map(async([id,key])=>{
+        const value=await get(key);
+        document.getElementById(id).textContent=value===null?'—':value;
+      }));
       const menuValues=await Promise.all(['menu_yemek','menu_icecek','menu_coffee'].map(get));
-      document.getElementById('menu_total').textContent=menuValues.reduce((a,b)=>a+b,0);
+      document.getElementById('menu_total').textContent=menuValues.every(v=>v!==null)?menuValues.reduce((a,b)=>a+b,0):'—';
       const brands=[['iPhone','brand_iphone'],['iPad','brand_ipad'],['Samsung','brand_samsung'],['Xiaomi / Redmi / POCO','brand_xiaomi'],['Huawei / Honor','brand_huawei'],['OPPO','brand_oppo'],['vivo','brand_vivo'],['OnePlus','brand_oneplus'],['Google Pixel','brand_google'],['Motorola','brand_motorola'],['Sony','brand_sony'],['Nokia','brand_nokia'],['Apple PC','brand_apple_pc'],['Digər PC','brand_pc'],['Digər','brand_other']];
       const values=await Promise.all(brands.map(async([name,key])=>[name,await get(key)]));
-      document.getElementById('brands').innerHTML=values.filter(([,v])=>v>0).map(([n,v])=>`<div class="row"><span>${n}</span><span class="count">${v}</span></div>`).join('')||'<div>Hələ məlumat yoxdur.</div>';
+      document.getElementById('brands').innerHTML=values.filter(([,v])=>v!==null&&v>0).map(([n,v])=>`<div class="row"><span>${n}</span><span class="count">${v}</span></div>`).join('')||'<div>Hələ məlumat yoxdur.</div>';
+      document.getElementById('status').textContent='Son yenilənmə: '+new Date().toLocaleTimeString('az-AZ');
     }
     load();
+    setInterval(load,5000);
   </script>
 </body>
 </html>
