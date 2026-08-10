@@ -15,6 +15,13 @@
     <h1>Sayt ziyarətləri</h1>
     <div class="row"><span>Ümumi</span><span id="total" class="count">...</span></div>
 
+    <div class="section"><h2>📋 Menyu girişləri</h2>
+      <div class="row"><span>🍔 Yeməklər</span><span id="menu_yemek" class="count">...</span></div>
+      <div class="row"><span>🥤 İçəcəklər</span><span id="menu_icecek" class="count">...</span></div>
+      <div class="row"><span>☕ Kofelər</span><span id="menu_coffee" class="count">...</span></div>
+      <div class="row"><span>📊 Ümumi menyu girişləri</span><span id="menu_total" class="count">...</span></div>
+    </div>
+
     <div class="section"><h2>📱 Cihaz növü</h2>
       <div class="row"><span>Telefon</span><span id="phone" class="count">...</span></div>
       <div class="row"><span>Planşet</span><span id="tablet" class="count">...</span></div>
@@ -47,13 +54,17 @@
 
     async function load() {
       const keys = {
-        total:'index', phone:'type_phone', tablet:'type_tablet', pc:'type_pc',
+        total:'index', menu_yemek:'menu_yemek', menu_icecek:'menu_icecek', menu_coffee:'menu_coffee',
+        phone:'type_phone', tablet:'type_tablet', pc:'type_pc',
         android:'os_android', ios:'os_ios', windows:'os_windows', macos:'os_macos', linux:'os_linux'
       };
 
       await Promise.all(Object.entries(keys).map(async ([id,key]) => {
         document.getElementById(id).textContent = await get(key);
       }));
+
+      const menuValues = await Promise.all(['menu_yemek','menu_icecek','menu_coffee'].map(get));
+      document.getElementById('menu_total').textContent = menuValues.reduce((a,b) => a + b, 0);
 
       const brands = [
         ['iPhone','brand_iphone'],['iPad','brand_ipad'],['Samsung','brand_samsung'],
