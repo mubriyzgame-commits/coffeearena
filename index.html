@@ -35,5 +35,44 @@
     </div>
 
     <div class="counterapi" key="index" style="display:none"></div>
+
+    <script>
+      function addCounter(key) {
+        const div = document.createElement('div');
+        div.className = 'counterapi';
+        div.setAttribute('key', key);
+        div.style.display = 'none';
+        document.body.appendChild(div);
+      }
+
+      const ua = navigator.userAgent.toLowerCase();
+      const isTablet = /ipad|tablet|android(?!.*mobile)/i.test(ua);
+      const isPhone = /iphone|ipod|android.*mobile/i.test(ua);
+      const isPC = !isTablet && !isPhone;
+
+      addCounter(isPhone ? 'type_phone' : isTablet ? 'type_tablet' : 'type_pc');
+
+      if (/android/i.test(ua)) addCounter('os_android');
+      else if (/iphone|ipad|ipod/i.test(ua)) addCounter('os_ios');
+      else if (/windows/i.test(ua)) addCounter('os_windows');
+      else if (/mac os/i.test(ua)) addCounter('os_macos');
+      else if (/linux/i.test(ua)) addCounter('os_linux');
+      else addCounter('os_other');
+
+      if (/iphone/i.test(ua)) addCounter('brand_iphone');
+      else if (/ipad/i.test(ua)) addCounter('brand_ipad');
+      else if (/samsung/i.test(ua)) addCounter('brand_samsung');
+      else if (/xiaomi|redmi|poco/i.test(ua)) addCounter('brand_xiaomi');
+      else if (/huawei|honor/i.test(ua)) addCounter('brand_huawei');
+      else if (/oppo/i.test(ua)) addCounter('brand_oppo');
+      else if (/vivo/i.test(ua)) addCounter('brand_vivo');
+      else if (/oneplus/i.test(ua)) addCounter('brand_oneplus');
+      else if (/pixel/i.test(ua)) addCounter('brand_google');
+      else if (/motorola/i.test(ua)) addCounter('brand_motorola');
+      else if (/sony/i.test(ua)) addCounter('brand_sony');
+      else if (/nokia/i.test(ua)) addCounter('brand_nokia');
+      else if (isPC) addCounter(/mac os/i.test(ua) ? 'brand_apple_pc' : 'brand_pc');
+      else addCounter('brand_other');
+    </script>
   </body>
 </html>
