@@ -1,7 +1,51 @@
 <!doctype html>
-<html lang="az"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Gizli panel</title><style>body{font-family:Arial,sans-serif;background:#3c8527;margin:0;padding:20px;min-height:100vh}.panel{background:#fff;padding:25px;border-radius:15px;max-width:600px;margin:auto;box-shadow:0 8px 25px rgba(0,0,0,.25)}h1{margin-top:0}.section{margin-top:22px}.row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #ddd}.count{font-weight:bold}.status{font-size:13px;color:#666;margin-top:12px}</style></head><body><div class="panel"><h1>Sayt ziyarətləri</h1><div class="row"><span>Ümumi</span><span id="total" class="count">...</span></div><div class="section"><h2>📋 Menyu girişləri</h2><div class="row"><span>🍔 Yeməklər</span><span id="menu_yemek" class="count">...</span></div><div class="row"><span>🥤 İçəcəklər</span><span id="menu_icecek" class="count">...</span></div><div class="row"><span>☕ Kofelər</span><span id="menu_coffee" class="count">...</span></div><div class="row"><span>📊 Ümumi menyu girişləri</span><span id="menu_total" class="count">...</span></div></div><div class="section"><h2>📱 Cihaz növü</h2><div class="row"><span>Telefon</span><span id="phone" class="count">...</span></div><div class="row"><span>Planşet</span><span id="tablet" class="count">...</span></div><div class="row"><span>PC</span><span id="pc" class="count">...</span></div></div><div class="section"><h2>⚙️ Əməliyyat sistemi</h2><div class="row"><span>Android</span><span id="android" class="count">...</span></div><div class="row"><span>iOS / iPadOS</span><span id="ios" class="count">...</span></div><div class="row"><span>Windows</span><span id="windows" class="count">...</span></div><div class="row"><span>macOS</span><span id="macos" class="count">...</span></div><div class="row"><span>Linux</span><span id="linux" class="count">...</span></div></div><div class="section"><h2>📱 Marka / cihaz</h2><div id="brands"></div></div><div id="status" class="status">Yüklənir...</div></div><script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script><script>
-const counter=new Counter({version:'v1',namespace:'coffeearena'});
-async function get(key){try{const r=await counter.get(key);const v=r?.value??r?.count??r?.data?.value??r?.data?.count;return typeof v==='number'?v:null}catch(e){console.error('CounterAPI:',key,e);return null}}
-async function load(){const keys={total:'index',menu_yemek:'menu_yemek',menu_icecek:'menu_icecek',menu_coffee:'menu_coffee',phone:'type_phone',tablet:'type_tablet',pc:'type_pc',android:'os_android',ios:'os_ios',windows:'os_windows',macos:'os_macos',linux:'os_linux'};await Promise.all(Object.entries(keys).map(async([id,key])=>{const v=await get(key);document.getElementById(id).textContent=v===null?'Xəta':v}));const mv=await Promise.all(['menu_yemek','menu_icecek','menu_coffee'].map(get));document.getElementById('menu_total').textContent=mv.every(v=>v!==null)?mv.reduce((a,b)=>a+b,0):'Xəta';const brands=[['iPhone','brand_iphone'],['iPad','brand_ipad'],['Samsung','brand_samsung'],['Xiaomi / Redmi / POCO','brand_xiaomi'],['Huawei / Honor','brand_huawei'],['OPPO','brand_oppo'],['vivo','brand_vivo'],['OnePlus','brand_oneplus'],['Google Pixel','brand_google'],['Motorola','brand_motorola'],['Sony','brand_sony'],['Nokia','brand_nokia'],['Apple PC','brand_apple_pc'],['Digər PC','brand_pc'],['Digər','brand_other']];const vals=await Promise.all(brands.map(async([n,k])=>[n,await get(k)]));document.getElementById('brands').innerHTML=vals.filter(([,v])=>v!==null&&v>0).map(([n,v])=>`<div class="row"><span>${n}</span><span class="count">${v}</span></div>`).join('')||'<div>Hələ məlumat yoxdur.</div>';document.getElementById('status').textContent='Son yenilənmə: '+new Date().toLocaleTimeString('az-AZ')}
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Gizli panel</title>
+<style>body{font-family:Arial,sans-serif;background:#3c8527;margin:0;padding:20px;min-height:100vh}.panel{background:#fff;padding:25px;border-radius:15px;max-width:600px;margin:auto;box-shadow:0 8px 25px #0004}h1{margin-top:0}.section{margin-top:22px}.row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #ddd}.count{font-weight:bold}.status{font-size:13px;color:#666;margin-top:12px}</style>
+</head>
+<body>
+<div class="panel">
+<h1>Sayt ziyarətləri</h1>
+<div class="row"><span>Ümumi</span><span id="total" class="count">...</span></div>
+<div class="section"><h2>📋 Menyu girişləri</h2>
+<div class="row"><span>🍔 Yeməklər</span><span id="menu_yemek" class="count">...</span></div>
+<div class="row"><span>🥤 İçəcəklər</span><span id="menu_icecek" class="count">...</span></div>
+<div class="row"><span>☕ Kofelər</span><span id="menu_coffee" class="count">...</span></div>
+<div class="row"><span>📊 Ümumi menyu girişləri</span><span id="menu_total" class="count">...</span></div></div>
+<div class="section"><h2>📱 Cihaz növü</h2><div class="row"><span>Telefon</span><span id="phone" class="count">...</span></div><div class="row"><span>Planşet</span><span id="tablet" class="count">...</span></div><div class="row"><span>PC</span><span id="pc" class="count">...</span></div></div>
+<div class="section"><h2>⚙️ Əməliyyat sistemi</h2><div class="row"><span>Android</span><span id="android" class="count">...</span></div><div class="row"><span>iOS / iPadOS</span><span id="ios" class="count">...</span></div><div class="row"><span>Windows</span><span id="windows" class="count">...</span></div><div class="row"><span>macOS</span><span id="macos" class="count">...</span></div><div class="row"><span>Linux</span><span id="linux" class="count">...</span></div></div>
+<div class="section"><h2>📱 Marka / cihaz</h2><div id="brands"></div></div>
+<div id="status" class="status">Yüklənir...</div>
+</div>
+<script>
+const NS='coffeearena';
+async function get(key){
+  try{
+    const r=await fetch('https://api.counterapi.dev/v1/'+NS+'/'+encodeURIComponent(key));
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    if(typeof d.count==='number') return d.count;
+    if(d.data&&typeof d.data.count==='number') return d.data.count;
+    if(typeof d.value==='number') return d.value;
+    if(d.data&&typeof d.data.value==='number') return d.data.value;
+    return null;
+  }catch(e){return null;}
+}
+async function load(){
+ const keys={total:'index',menu_yemek:'menu_yemek',menu_icecek:'menu_icecek',menu_coffee:'menu_coffee',phone:'type_phone',tablet:'type_tablet',pc:'type_pc',android:'os_android',ios:'os_ios',windows:'os_windows',macos:'os_macos',linux:'os_linux'};
+ const entries=await Promise.all(Object.entries(keys).map(async([id,key])=>[id,await get(key)]));
+ entries.forEach(([id,v])=>document.getElementById(id).textContent=v===null?'—':v);
+ const mv=await Promise.all(['menu_yemek','menu_icecek','menu_coffee'].map(get));
+ document.getElementById('menu_total').textContent=mv.every(v=>v!==null)?mv.reduce((a,b)=>a+b,0):'—';
+ const brands=[['iPhone','brand_iphone'],['iPad','brand_ipad'],['Samsung','brand_samsung'],['Xiaomi / Redmi / POCO','brand_xiaomi'],['Huawei / Honor','brand_huawei'],['OPPO','brand_oppo'],['vivo','brand_vivo'],['OnePlus','brand_oneplus'],['Google Pixel','brand_google'],['Motorola','brand_motorola'],['Sony','brand_sony'],['Nokia','brand_nokia'],['Apple PC','brand_apple_pc'],['Digər PC','brand_pc'],['Digər','brand_other']];
+ const vals=await Promise.all(brands.map(async([n,k])=>[n,await get(k)]));
+ document.getElementById('brands').innerHTML=vals.filter(([,v])=>v!==null&&v>0).map(([n,v])=>'<div class="row"><span>'+n+'</span><span class="count">'+v+'</span></div>').join('')||'<div>Hələ məlumat yoxdur.</div>';
+ document.getElementById('status').textContent='Son yenilənmə: '+new Date().toLocaleTimeString('az-AZ');
+}
 load();setInterval(load,5000);
-</script></body></html>
+</script>
+</body>
+</html>
