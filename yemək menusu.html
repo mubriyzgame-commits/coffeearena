@@ -12,18 +12,23 @@
       <h1 id="text">Nuş olsun!</h1>
     </header>
     <div class="carts">
-      <div class="cart"><img src="./images (56).jpg" alt="Tost" /><div class="info"><h3>Tost</h3><p>3.50 Azn</p></div></div>
-      <div class="cart"><img src="./images (45).jpg" alt="Hot-dog" /><div class="info"><h3>Hot-dog</h3><p>2.50 Azn</p></div></div>
-      <div class="cart"><img src="./images (46).jpg" alt="Ət qutab" /><div class="info"><h3>Ət qutab</h3><p>1.50 Azn</p></div></div>
-      <div class="cart"><img src="./images (47).jpg" alt="Göy qutab" /><div class="info"><h3>Göy qutab</h3><p>1.20 Azn</p></div></div>
-      <div class="cart"><img src="./images (48).jpg" alt="Maxara" /><div class="info"><h3>Maxara</h3><p>1.20 Azn</p></div></div>
-      <div class="cart"><img src="./images (49).jpg" alt="Kartof free" /><div class="info"><h3>Kartof free</h3><p>2.50 Azn</p></div></div>
-      <div class="cart"><img src="./images (50).jpg" alt="Sossiska" /><div class="info"><h3>Sossiska</h3><p>3 Azn</p></div></div>
-      <div class="cart"><img src="./images (51).jpg" alt="Nuggets free" /><div class="info"><h3>Nuggets free</h3><p>6 Azn</p></div></div>
-      <div class="cart"><img src="./images (52).jpg" alt="Burger free" /><div class="info"><h3>Burger free</h3><p>6 Azn</p></div></div>
-      <div class="cart"><img src="./images (53).jpg" alt="Kurasan çiyələk" /><div class="info"><h3>Kurasan çiyələk</h3><p>2 Azn</p></div></div>
-      <div class="cart"><img src="./images (54).jpg" alt="Kurasan şokolad" /><div class="info"><h3>Kurasan şokolad</h3><p>2 Azn</p></div></div>
+      <div class="cart"><img src="./images (56).jpg" alt="Tost" loading="lazy" /><div class="info"><h3>Tost</h3><p>3.50 Azn</p></div></div>
+      <div class="cart"><img src="./images (45).jpg" alt="Hot-dog" loading="lazy" /><div class="info"><h3>Hot-dog</h3><p>2.50 Azn</p></div></div>
+      <div class="cart"><img src="./images (46).jpg" alt="Ət qutab" loading="lazy" /><div class="info"><h3>Ət qutab</h3><p>1.50 Azn</p></div></div>
+      <div class="cart"><img src="./images (47).jpg" alt="Göy qutab" loading="lazy" /><div class="info"><h3>Göy qutab</h3><p>1.20 Azn</p></div></div>
+      <div class="cart"><img src="./images (48).jpg" alt="Maxara" loading="lazy" /><div class="info"><h3>Maxara</h3><p>1.20 Azn</p></div></div>
+      <div class="cart"><img src="./images (49).jpg" alt="Kartof free" loading="lazy" /><div class="info"><h3>Kartof free</h3><p>2.50 Azn</p></div></div>
+      <div class="cart"><img src="./images (50).jpg" alt="Sossiska" loading="lazy" /><div class="info"><h3>Sossiska</h3><p>3 Azn</p></div></div>
+      <div class="cart"><img src="./images (51).jpg" alt="Nuggets free" loading="lazy" /><div class="info"><h3>Nuggets free</h3><p>6 Azn</p></div></div>
+      <div class="cart"><img src="./images (52).jpg" alt="Burger free" loading="lazy" /><div class="info"><h3>Burger free</h3><p>6 Azn</p></div></div>
+      <div class="cart"><img src="./images (53).jpg" alt="Kurasan çiyələk" loading="lazy" /><div class="info"><h3>Kurasan çiyələk</h3><p>2 Azn</p></div></div>
+      <div class="cart"><img src="./images (54).jpg" alt="Kurasan şokolad" loading="lazy" /><div class="info"><h3>Kurasan şokolad</h3><p>2 Azn</p></div></div>
     </div>
-    <script>fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_menu_yemek').catch(()=>{});</script>
+    <script>
+      if (!sessionStorage.getItem('hit_menu_yemek')) {
+        sessionStorage.setItem('hit_menu_yemek', '1');
+        fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_menu_yemek').catch(function(){});
+      }
+    </script>
   </body>
 </html>

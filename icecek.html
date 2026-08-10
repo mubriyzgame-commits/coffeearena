@@ -39,7 +39,10 @@
       <div class="cart"><img src="./images (43).jpg" alt="Jameson kokteyl" loading="lazy" /><div class="info"><h3>Jameson kokteyl</h3><p>7 Azn</p></div></div>
     </div>
     <script>
-      fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_menu_icecek').catch(function(){});
+      if (!sessionStorage.getItem('hit_menu_icecek')) {
+        sessionStorage.setItem('hit_menu_icecek', '1');
+        fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_menu_icecek').catch(function(){});
+      }
     </script>
   </body>
 </html>
