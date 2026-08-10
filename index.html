@@ -35,10 +35,9 @@
 
     <script>
       function hit(key) {
-        fetch('https://counterapi.com/api/coffeearena/view/' + encodeURIComponent(key)).catch(() => {});
+        fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_' + encodeURIComponent(key)).catch(() => {});
       }
 
-      // Ümumi səhifə sayğacı
       hit('index');
 
       const ua = navigator.userAgent.toLowerCase();
@@ -46,10 +45,8 @@
       const isPhone = /iphone|ipod|android.*mobile/i.test(ua);
       const isPC = !isTablet && !isPhone;
 
-      // Cihaz tipi
       hit(isPhone ? 'type_phone' : isTablet ? 'type_tablet' : 'type_pc');
 
-      // Əməliyyat sistemi
       if (/android/i.test(ua)) hit('os_android');
       else if (/iphone|ipad|ipod/i.test(ua)) hit('os_ios');
       else if (/windows/i.test(ua)) hit('os_windows');
@@ -57,7 +54,6 @@
       else if (/linux/i.test(ua)) hit('os_linux');
       else hit('os_other');
 
-      // Brend
       if (/iphone/i.test(ua)) hit('brand_iphone');
       else if (/ipad/i.test(ua)) hit('brand_ipad');
       else if (/samsung/i.test(ua)) hit('brand_samsung');
