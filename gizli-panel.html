@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gizli panel</title>
+  <style>
+    body{font-family:Arial,sans-serif;background:#3c8527;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center}
+    .panel{background:white;padding:30px;border-radius:15px;text-align:center;min-width:260px;box-shadow:0 8px 25px rgba(0,0,0,.25)}
+    h1{margin-top:0}.count{font-size:50px;font-weight:bold;margin:20px 0}
+    #error{color:#b00020}
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h1>Sayt ziyarətləri</h1>
+    <div id="count" class="count">...</div>
+    <div id="error"></div>
+  </div>
+
+  <script>
+    const API = 'https://counterapi.com/api/coffeearena/view/index?readOnly=true';
+
+    fetch(API)
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('count').textContent = data.value ?? '0';
+      })
+      .catch(() => {
+        document.getElementById('count').textContent = '—';
+        document.getElementById('error').textContent = 'Sayğacı yükləmək olmadı.';
+      });
+  </script>
+</body>
+</html>
