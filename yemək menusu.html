@@ -5,17 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yemək Menyusu</title>
     <link rel="stylesheet" href="./yemək menus.css" />
-    <script src="https://counterapi.com/c.js?ns=coffeearena" async></script>
   </head>
-
   <body>
     <header>
       <a href="./index.html">Geri</a>
       <h1 id="text">Nuş olsun!</h1>
     </header>
-
-    <div class="counterapi" key="menu_yemek" style="display:none"></div>
-
     <div class="carts">
       <div class="cart"><img src="./images (56).jpg" alt="Tost" /><div class="info"><h3>Tost</h3><p>3.50 Azn</p></div></div>
       <div class="cart"><img src="./images (45).jpg" alt="Hot-dog" /><div class="info"><h3>Hot-dog</h3><p>2.50 Azn</p></div></div>
@@ -29,5 +24,6 @@
       <div class="cart"><img src="./images (53).jpg" alt="Kurasan çiyələk" /><div class="info"><h3>Kurasan çiyələk</h3><p>2 Azn</p></div></div>
       <div class="cart"><img src="./images (54).jpg" alt="Kurasan şokolad" /><div class="info"><h3>Kurasan şokolad</h3><p>2 Azn</p></div></div>
     </div>
+    <script>fetch('https://api.counterapi.dev/v1/coffeearena/menu_yemek/up').catch(()=>{});</script>
   </body>
 </html>
