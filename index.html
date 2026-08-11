@@ -1,21 +1,54 @@
 <!doctype html>
 <html lang="az">
-<head>
-<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Coffee Arena</title><link rel="stylesheet" href="./əsas səhifə.css" />
-</head><body>
-<header><h1 class="text">Coffee Arenaya xoş gəlmisiniz!</h1><h2 class="text">Seçiminizi edin</h2></header>
-<div class="carts">
-<a href="./yemək menusu.html"><div class="cart"><h1>Yeməklər</h1></div></a>
-<a href="./icecek.html"><div class="cart"><h1>İçəcəklər</h1></div></a>
-<a href="./coffee menusu.html"><div class="cart"><h1>Kofelər</h1></div></a>
-</div>
-<script>
-const BASE='https://counterapi.com/api/coffeearena/view/';
-function hitOnce(key){const storageKey='hit_'+key;if(sessionStorage.getItem(storageKey))return;sessionStorage.setItem(storageKey,'1');fetch(BASE+encodeURIComponent(key)).catch(function(){});}
-hitOnce('index');
-const ua=navigator.userAgent.toLowerCase();
-const isTablet=/ipad|tablet|android(?!.*mobile)/i.test(ua);const isPhone=/iphone|ipod|android.*mobile/i.test(ua);const isPC=!isTablet&&!isPhone;
-hitOnce(isPhone?'type_phone':isTablet?'type_tablet':'type_pc');
-if(/android/i.test(ua))hitOnce('os_android');else if(/iphone|ipad|ipod/i.test(ua))hitOnce('os_ios');else if(/windows/i.test(ua))hitOnce('os_windows');else if(/mac os/i.test(ua))hitOnce('os_macos');else if(/linux/i.test(ua))hitOnce('os_linux');
-if(/iphone/i.test(ua))hitOnce('brand_iphone');else if(/ipad/i.test(ua))hitOnce('brand_ipad');else if(/samsung/i.test(ua))hitOnce('brand_samsung');else if(/xiaomi|redmi|poco/i.test(ua))hitOnce('brand_xiaomi');else if(/huawei|honor/i.test(ua))hitOnce('brand_huawei');else if(/oppo/i.test(ua))hitOnce('brand_oppo');else if(/vivo/i.test(ua))hitOnce('brand_vivo');else if(/oneplus/i.test(ua))hitOnce('brand_oneplus');else if(/pixel/i.test(ua))hitOnce('brand_google');else if(/motorola/i.test(ua))hitOnce('brand_motorola');else if(/sony/i.test(ua))hitOnce('brand_sony');else if(/nokia/i.test(ua))hitOnce('brand_nokia');else if(isPC)hitOnce(/mac os/i.test(ua)?'brand_apple_pc':'brand_pc');else hitOnce('brand_other');
-</script></body></html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coffee Arena</title>
+    <link rel="stylesheet" href="./əsas səhifə.css" />
+  </head>
+  <body>
+    <header>
+      <h1 class="text">Coffee Arenaya xoş gəlmisiniz!</h1>
+      <h2 class="text">Seçiminizi edin</h2>
+    </header>
+    <div class="carts">
+      <a href="./yemək menusu.html"><div class="cart"><h1>Yeməklər</h1></div></a>
+      <a href="./icecek.html"><div class="cart"><h1>İçəcəklər</h1></div></a>
+      <a href="./coffee menusu.html"><div class="cart"><h1>Kofelər</h1></div></a>
+    </div>
+    <script>
+      function hitOnce(key) {
+        var storageKey = 'hit_' + key;
+        if (sessionStorage.getItem(storageKey)) return;
+        sessionStorage.setItem(storageKey, '1');
+        fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_' + encodeURIComponent(key)).catch(function(){});
+      }
+      hitOnce('index');
+      var ua = navigator.userAgent.toLowerCase();
+      var isTablet = /ipad|tablet|android(?!.*mobile)/i.test(ua);
+      var isPhone = /iphone|ipod|android.*mobile/i.test(ua);
+      var isPC = !isTablet && !isPhone;
+      hitOnce(isPhone ? 'type_phone' : isTablet ? 'type_tablet' : 'type_pc');
+      if (/android/i.test(ua)) hitOnce('os_android');
+      else if (/iphone|ipad|ipod/i.test(ua)) hitOnce('os_ios');
+      else if (/windows/i.test(ua)) hitOnce('os_windows');
+      else if (/mac os/i.test(ua)) hitOnce('os_macos');
+      else if (/linux/i.test(ua)) hitOnce('os_linux');
+      else hitOnce('os_other');
+      if (/iphone/i.test(ua)) hitOnce('brand_iphone');
+      else if (/ipad/i.test(ua)) hitOnce('brand_ipad');
+      else if (/samsung/i.test(ua)) hitOnce('brand_samsung');
+      else if (/xiaomi|redmi|poco/i.test(ua)) hitOnce('brand_xiaomi');
+      else if (/huawei|honor/i.test(ua)) hitOnce('brand_huawei');
+      else if (/oppo/i.test(ua)) hitOnce('brand_oppo');
+      else if (/vivo/i.test(ua)) hitOnce('brand_vivo');
+      else if (/oneplus/i.test(ua)) hitOnce('brand_oneplus');
+      else if (/pixel/i.test(ua)) hitOnce('brand_google');
+      else if (/motorola/i.test(ua)) hitOnce('brand_motorola');
+      else if (/sony/i.test(ua)) hitOnce('brand_sony');
+      else if (/nokia/i.test(ua)) hitOnce('brand_nokia');
+      else if (isPC) hitOnce(/mac os/i.test(ua) ? 'brand_apple_pc' : 'brand_pc');
+      else hitOnce('brand_other');
+    </script>
+  </body>
+</html>
