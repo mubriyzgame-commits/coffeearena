@@ -17,38 +17,43 @@
       <a href="./coffee menusu.html"><div class="cart"><h1>Kofelər</h1></div></a>
     </div>
     <script>
-      function hitOnce(key) {
-        var storageKey = 'hit_' + key;
-        if (sessionStorage.getItem(storageKey)) return;
-        sessionStorage.setItem(storageKey, '1');
-        fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_' + encodeURIComponent(key)).catch(function(){});
+      // Grok-style counter: read current value, then increment it by 1.
+      // Session storage prevents a back-navigation/reload from counting again in the same session.
+      const API = 'https://countapi.mileshilliard.com/api/v1';
+      async function plusOne(key) {
+        const k = 'counted_' + key;
+        if (sessionStorage.getItem(k)) return;
+        try {
+          const r = await fetch(API + '/hit/coffeearena_' + encodeURIComponent(key));
+          if (r.ok) sessionStorage.setItem(k, '1');
+        } catch (_) {}
       }
-      hitOnce('index');
-      var ua = navigator.userAgent.toLowerCase();
-      var isTablet = /ipad|tablet|android(?!.*mobile)/i.test(ua);
-      var isPhone = /iphone|ipod|android.*mobile/i.test(ua);
-      var isPC = !isTablet && !isPhone;
-      hitOnce(isPhone ? 'type_phone' : isTablet ? 'type_tablet' : 'type_pc');
-      if (/android/i.test(ua)) hitOnce('os_android');
-      else if (/iphone|ipad|ipod/i.test(ua)) hitOnce('os_ios');
-      else if (/windows/i.test(ua)) hitOnce('os_windows');
-      else if (/mac os/i.test(ua)) hitOnce('os_macos');
-      else if (/linux/i.test(ua)) hitOnce('os_linux');
-      else hitOnce('os_other');
-      if (/iphone/i.test(ua)) hitOnce('brand_iphone');
-      else if (/ipad/i.test(ua)) hitOnce('brand_ipad');
-      else if (/samsung/i.test(ua)) hitOnce('brand_samsung');
-      else if (/xiaomi|redmi|poco/i.test(ua)) hitOnce('brand_xiaomi');
-      else if (/huawei|honor/i.test(ua)) hitOnce('brand_huawei');
-      else if (/oppo/i.test(ua)) hitOnce('brand_oppo');
-      else if (/vivo/i.test(ua)) hitOnce('brand_vivo');
-      else if (/oneplus/i.test(ua)) hitOnce('brand_oneplus');
-      else if (/pixel/i.test(ua)) hitOnce('brand_google');
-      else if (/motorola/i.test(ua)) hitOnce('brand_motorola');
-      else if (/sony/i.test(ua)) hitOnce('brand_sony');
-      else if (/nokia/i.test(ua)) hitOnce('brand_nokia');
-      else if (isPC) hitOnce(/mac os/i.test(ua) ? 'brand_apple_pc' : 'brand_pc');
-      else hitOnce('brand_other');
+      plusOne('index');
+      const ua = navigator.userAgent.toLowerCase();
+      const isTablet = /ipad|tablet|android(?!.*mobile)/i.test(ua);
+      const isPhone = /iphone|ipod|android.*mobile/i.test(ua);
+      const isPC = !isTablet && !isPhone;
+      plusOne(isPhone ? 'type_phone' : isTablet ? 'type_tablet' : 'type_pc');
+      if (/android/i.test(ua)) plusOne('os_android');
+      else if (/iphone|ipad|ipod/i.test(ua)) plusOne('os_ios');
+      else if (/windows/i.test(ua)) plusOne('os_windows');
+      else if (/mac os/i.test(ua)) plusOne('os_macos');
+      else if (/linux/i.test(ua)) plusOne('os_linux');
+      else plusOne('os_other');
+      if (/iphone/i.test(ua)) plusOne('brand_iphone');
+      else if (/ipad/i.test(ua)) plusOne('brand_ipad');
+      else if (/samsung/i.test(ua)) plusOne('brand_samsung');
+      else if (/xiaomi|redmi|poco/i.test(ua)) plusOne('brand_xiaomi');
+      else if (/huawei|honor/i.test(ua)) plusOne('brand_huawei');
+      else if (/oppo/i.test(ua)) plusOne('brand_oppo');
+      else if (/vivo/i.test(ua)) plusOne('brand_vivo');
+      else if (/oneplus/i.test(ua)) plusOne('brand_oneplus');
+      else if (/pixel/i.test(ua)) plusOne('brand_google');
+      else if (/motorola/i.test(ua)) plusOne('brand_motorola');
+      else if (/sony/i.test(ua)) plusOne('brand_sony');
+      else if (/nokia/i.test(ua)) plusOne('brand_nokia');
+      else if (isPC) plusOne(/mac os/i.test(ua) ? 'brand_apple_pc' : 'brand_pc');
+      else plusOne('brand_other');
     </script>
   </body>
 </html>
