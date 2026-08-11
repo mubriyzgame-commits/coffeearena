@@ -8,11 +8,11 @@
 <script>
 const groups={
 '🍔 Yeməklər':['Tost','Hot-dog','Ət qutab','Göy qutab','Maxara','Kartof free','Sossiska','Nuggets free','Burger free','Kurasan çiyələk','Kurasan şokolad'],
-'🥤 İçəcəklər':[],
-'☕ Kofelər':[]
+'🥤 İçəcəklər':['Mojito','Mojito Siroplu','Milk shake vanil','Milk shake çiyələk','Milk shake banan','Milk shake Oreo','İce capuccino','İce latte','Blue vanilla latte','İce espresso','İce nescafe','Marojna Kokteyl','Limonad 2L','Kola 0.3 ml','Fanta 0.3 ml','Sprite 0.3 ml','Qazlı su 1l','Qazsız su 1l','Redbul 250 ml','Soyuq çay','Mojito ALC','Efes draft','Karona','Jagermaster kokteyl','Jameson kokteyl'],
+'☕ Kofelər':['Espresso','Americano','Capuccino','Latte','Mocha','İsti şokolad','Nescafe','Raff Coffee','Coffe Arena (Nədi Hodu)','Çay','Bitki çayı','Samovar çayı','Çay dəzgahı','Snikers','Pletka şokolad','Çiyələk mürəbbə','Qoz mürəbbə','Gilas mürəbbə','Kivi mürəbbə']
 };
 const state={}; Object.values(groups).flat().forEach(x=>state[x]=true);
-function render(){document.getElementById('app').innerHTML=Object.entries(groups).map(([group,names])=>`<section class="section"><h2>${group}</h2>${names.length?names.map(name=>`<div class="item"><b>${name}</b><div class="buttons"><button class="yes ${state[name]?'active':''}" onclick="setState('${name}',true)">✅ VAR</button><button class="no ${!state[name]?'active':''}" onclick="setState('${name}',false)">❌ YOXDUR</button></div></div>`).join(''):'<p>Bu bölmədə məhsul yoxdur.</p>'}</section>`).join('')}
+function render(){document.getElementById('app').innerHTML=Object.entries(groups).map(([group,names])=>`<section class="section"><h2>${group}</h2>${names.map(name=>`<div class="item"><b>${name}</b><div class="buttons"><button class="yes ${state[name]?'active':''}" onclick="setState('${name.replace(/'/g,"\\'")}',true)">✅ VAR</button><button class="no ${!state[name]?'active':''}" onclick="setState('${name.replace(/'/g,"\\'")}',false)">❌ YOXDUR</button></div></div>`).join('')}</section>`).join('')}
 function setState(name,value){state[name]=value;render()}
 render();
 </script></body></html>
