@@ -4,9 +4,22 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Gizli panel</title>
 <style>
-body{font-family:Arial,sans-serif;background:#3c8527;margin:0;padding:20px}.panel{background:#fff;padding:25px;border-radius:15px;max-width:650px;margin:auto}.row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #ddd}.count{font-weight:bold;font-size:18px}.status{font-size:13px;color:#666;margin-top:12px}h2{margin:20px 0 8px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#3c8527;margin:0;padding:20px}
+header{margin-bottom:20px}
+header a{text-decoration:none;color:black;font-size:20px}
+.panel{background:#fff;padding:25px;border-radius:15px;max-width:650px;margin:auto}
+.row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #ddd}
+.count{font-weight:bold;font-size:18px}
+.status{font-size:13px;color:#666;margin-top:12px}
+h1{margin-bottom:10px}
+h2{margin:20px 0 8px}
 </style></head>
-<body><div class="panel"><h1>Sayt ziyarətləri</h1><div id="stats">Yüklənir...</div><div id="status" class="status"></div></div>
+<body>
+<header>
+  <a href="./index.html">Geri</a>
+</header>
+<div class="panel"><h1>Sayt ziyarətləri</h1><div id="stats">Yüklənir...</div><div id="status" class="status"></div></div>
 <script>
 const BASE='https://counterapi.com/api/coffeearena/view/';
 const groups=[
