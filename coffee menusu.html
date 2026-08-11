@@ -1,16 +1,10 @@
 <!doctype html>
 <html lang="az">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coffee Menyusu</title>
-    <link rel="stylesheet" href="./coffee menusu.css" />
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Coffee Menyusu</title><link rel="stylesheet" href="./coffee menusu.css" />
   </head>
   <body>
-    <header>
-      <a href="./index.html">Geri</a>
-      <h1 id="text">Latte çox dadlıdır!</h1>
-    </header>
+    <header><a href="./index.html">Geri</a><h1 id="text">Latte çox dadlıdır!</h1></header>
     <div class="carts">
       <div class="cart"><img src="./espresso.jpg" alt="Espresso" loading="lazy" /><div class="info"><h3>Espresso</h3><p>4 Azn</p></div></div>
       <div class="cart"><img src="./images (1).jpg" alt="Americano" loading="lazy" /><div class="info"><h3>Americano</h3><p>4 Azn</p></div></div>
@@ -33,10 +27,8 @@
       <div class="cart"><img src="./images (18).jpg" alt="Kivi mürəbbə" loading="lazy" /><div class="info"><h3>Kivi mürəbbə</h3><p>5 Azn</p></div></div>
     </div>
     <script>
-      if (!sessionStorage.getItem('hit_menu_coffee')) {
-        sessionStorage.setItem('hit_menu_coffee', '1');
-        fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_menu_coffee').catch(function(){});
-      }
+      document.querySelectorAll('.cart').forEach(card=>{const name=card.querySelector('h3')?.textContent.trim();if(name&&localStorage.getItem('coffee_stock_'+name)==='0')card.style.display='none';});
+      if(!sessionStorage.getItem('hit_menu_coffee')){sessionStorage.setItem('hit_menu_coffee','1');fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_menu_coffee').catch(function(){});}
     </script>
   </body>
 </html>
