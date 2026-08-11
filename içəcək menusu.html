@@ -33,7 +33,9 @@
       <div class="cart"><img src="./images (43).jpg" alt="Jameson kokteyl" /><div class="info"><h3>Jameson kokteyl</h3><p>7 Azn</p></div></div>
     </div>
     <script>
-      document.querySelectorAll('.cart').forEach(card=>{const name=card.querySelector('h3')?.textContent.trim();if(name&&localStorage.getItem('coffee_stock_'+name)==='0')card.style.display='none';});
+      const MENU_API='https://solitary-disk-196f.mubriyzgame.workers.dev';
+      async function applyStock(){try{const r=await fetch(MENU_API+'/api/menu');if(!r.ok)return;const data=await r.json();document.querySelectorAll('.cart').forEach(card=>{const name=card.querySelector('h3')?.textContent.trim();const item=data.icecek?.[name];if(item&&item.available===false)card.style.display='none';else card.style.display='';});}catch(e){}}
+      applyStock();
       if(!sessionStorage.getItem('hit_menu_icecek')){sessionStorage.setItem('hit_menu_icecek','1');fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_menu_icecek').catch(()=>{});}
     </script>
   </body>
