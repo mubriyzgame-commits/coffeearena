@@ -7,10 +7,7 @@
     <link rel="stylesheet" href="./yemək menus.css" />
   </head>
   <body>
-    <header>
-      <a href="./index.html">Geri</a>
-      <h1 id="text">Nuş olsun!</h1>
-    </header>
+    <header><a href="./index.html">Geri</a><h1 id="text">Nuş olsun!</h1></header>
     <div class="carts">
       <div class="cart"><img src="./images (56).jpg" alt="Tost" loading="lazy" /><div class="info"><h3>Tost</h3><p>3.50 Azn</p></div></div>
       <div class="cart"><img src="./images (45).jpg" alt="Hot-dog" loading="lazy" /><div class="info"><h3>Hot-dog</h3><p>2.50 Azn</p></div></div>
@@ -25,10 +22,8 @@
       <div class="cart"><img src="./images (54).jpg" alt="Kurasan şokolad" loading="lazy" /><div class="info"><h3>Kurasan şokolad</h3><p>2 Azn</p></div></div>
     </div>
     <script>
-      if (!sessionStorage.getItem('hit_menu_yemek')) {
-        sessionStorage.setItem('hit_menu_yemek', '1');
-        fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_menu_yemek').catch(function(){});
-      }
+      document.querySelectorAll('.cart').forEach(card=>{const name=card.querySelector('h3')?.textContent.trim();if(name&&localStorage.getItem('coffee_stock_'+name)==='0')card.style.display='none';});
+      if (!sessionStorage.getItem('hit_menu_yemek')) { sessionStorage.setItem('hit_menu_yemek','1'); fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_menu_yemek').catch(function(){}); }
     </script>
   </body>
 </html>
