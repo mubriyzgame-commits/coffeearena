@@ -4,6 +4,30 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Menyu idarəsi</title>
 <style>body{font-family:Arial,sans-serif;max-width:800px;margin:20px auto;padding:16px;background:#f5f5f5}h1{text-align:center}.login{background:#fff;padding:14px;border-radius:10px;margin:18px 0;display:flex;gap:8px;flex-wrap:wrap}.login input{flex:1;min-width:220px;padding:10px;border:1px solid #ccc;border-radius:8px}.section{margin:24px 0}.section h2{background:#222;color:#fff;padding:12px;border-radius:10px}.item{background:#fff;padding:12px;margin:8px 0;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:10px}.buttons{display:flex;gap:6px}button{border:0;border-radius:8px;padding:9px 12px;font-weight:bold;cursor:pointer}.yes{background:#d9f7df}.no{background:#ffdede}.active{outline:3px solid #333}.status{font-size:14px;font-weight:bold}@media(max-width:600px){.item{flex-direction:column;align-items:stretch}.buttons button{flex:1}}</style>
 </head><body>
+ <style>
+.menu-kechid-btn {
+    display: inline-block;
+    padding: 12px 22px;
+    margin: 10px;
+    background: #111;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu-kechid-btn:hover {
+    background: #fff;
+    color: #111;
+    transform: translateY(-2px);
+}
+</style>
+ <a href="gizli-panel.html" class="menu-kechid-btn">
+    ← Gizli panel
+</a>
 <h1>☕ Menyu idarəsi</h1>
 <p>Buradan məhsulun <b>VAR</b> və ya <b>YOXDUR</b> vəziyyətini dəyiş. Dəyişiklik bütün cihazlarda tətbiq olunur.</p>
 <div class="login"><input id="adminKey" type="password" placeholder="Admin açarı"><button onclick="connect()">🔐 Qoşul</button><span id="loginStatus" class="status"></span></div>
