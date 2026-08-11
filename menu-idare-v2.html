@@ -4,15 +4,16 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Menyu idarəsi</title>
 <style>body{font-family:Arial,sans-serif;max-width:800px;margin:20px auto;padding:16px;background:#f5f5f5}h1{text-align:center}.section{margin:24px 0}.section h2{background:#222;color:#fff;padding:12px;border-radius:10px}.item{background:#fff;padding:12px;margin:8px 0;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:10px}.buttons{display:flex;gap:6px}button{border:0;border-radius:8px;padding:9px 12px;font-weight:bold;cursor:pointer}.yes{background:#d9f7df}.no{background:#ffdede}.active{outline:3px solid #333}@media(max-width:600px){.item{flex-direction:column;align-items:stretch}.buttons button{flex:1}}</style>
 </head><body>
-<h1>☕ Menyu idarəsi</h1><p>Hər məhsul üçün yalnız <b>VAR</b> və ya <b>YOXDUR</b> seç.</p><div id="app"></div>
+<h1>☕ Menyu idarəsi</h1><p>Hər məhsul üçün <b>VAR</b> və ya <b>YOXDUR</b> seç. Seçim əsas menyuda da dərhal tətbiq olunur.</p><div id="app"></div>
 <script>
 const groups={
 '🍔 Yeməklər':['Tost','Hot-dog','Ət qutab','Göy qutab','Maxara','Kartof free','Sossiska','Nuggets free','Burger free','Kurasan çiyələk','Kurasan şokolad'],
 '🥤 İçəcəklər':['Mojito','Mojito Siroplu','Milk shake vanil','Milk shake çiyələk','Milk shake banan','Milk shake Oreo','İce capuccino','İce latte','Blue vanilla latte','İce espresso','İce nescafe','Marojna Kokteyl','Limonad 2L','Kola 0.3 ml','Fanta 0.3 ml','Sprite 0.3 ml','Qazlı su 1l','Qazsız su 1l','Redbul 250 ml','Soyuq çay','Mojito ALC','Efes draft','Karona','Jagermaster kokteyl','Jameson kokteyl'],
 '☕ Kofelər':['Espresso','Americano','Capuccino','Latte','Mocha','İsti şokolad','Nescafe','Raff Coffee','Coffe Arena (Nədi Hodu)','Çay','Bitki çayı','Samovar çayı','Çay dəzgahı','Snikers','Pletka şokolad','Çiyələk mürəbbə','Qoz mürəbbə','Gilas mürəbbə','Kivi mürəbbə']
 };
-const state={}; Object.values(groups).flat().forEach(x=>state[x]=true);
-function render(){document.getElementById('app').innerHTML=Object.entries(groups).map(([group,names])=>`<section class="section"><h2>${group}</h2>${names.map(name=>`<div class="item"><b>${name}</b><div class="buttons"><button class="yes ${state[name]?'active':''}" onclick="setState('${name.replace(/'/g,"\\'")}',true)">✅ VAR</button><button class="no ${!state[name]?'active':''}" onclick="setState('${name.replace(/'/g,"\\'")}',false)">❌ YOXDUR</button></div></div>`).join('')}</section>`).join('')}
-function setState(name,value){state[name]=value;render()}
+const state={}; Object.values(groups).flat().forEach(x=>state[x]=localStorage.getItem('coffee_stock_'+x)!=='0');
+function save(name,value){state[name]=value;localStorage.setItem('coffee_stock_'+name,value?'1':'0');render()}
+function esc(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
+function render(){document.getElementById('app').innerHTML=Object.entries(groups).map(([group,names])=>`<section class="section"><h2>${group}</h2>${names.map(name=>`<div class="item"><b>${name}</b><div class="buttons"><button class="yes ${state[name]?'active':''}" onclick="save('${esc(name)}',true)">✅ VAR</button><button class="no ${!state[name]?'active':''}" onclick="save('${esc(name)}',false)">❌ YOXDUR</button></div></div>`).join('')}</section>`).join('')}
 render();
 </script></body></html>
