@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yemək Menyusu</title>
     <link rel="stylesheet" href="./yemək menus.css" />
+    <style>
+      .cart.stock-item-bitti{position:relative;}
+      .stock-bitti-badge{position:absolute;top:10px;left:10px;z-index:5;background:rgba(0,0,0,.78);color:#fff;padding:7px 12px;border-radius:8px;font-weight:800;font-size:14px;letter-spacing:.4px;pointer-events:none;}
+      .cart.stock-item-bitti img{filter:grayscale(.55) brightness(.72);}
+    </style>
   </head>
   <body>
     <header><a href="./index.html">Geri</a><h1 id="text">Nuş olsun!</h1></header>
@@ -23,7 +28,28 @@
     </div>
     <script>
       const MENU_API='https://solitary-disk-196f.mubriyzgame.workers.dev';
-      async function applyStock(){try{const r=await fetch(MENU_API+'/api/menu');if(!r.ok)return;const data=await r.json();document.querySelectorAll('.cart').forEach(card=>{const name=card.querySelector('h3')?.textContent.trim();const item=data.yemek?.[name];if(item&&item.available===false)card.style.display='none';else card.style.display='';});}catch(e){}}
+      async function applyStock(){
+        try{
+          const r=await fetch(MENU_API+'/api/menu',{cache:'no-store'});
+          if(!r.ok)return;
+          const data=await r.json();
+          const container=document.querySelector('.carts');
+          const cards=[...container.querySelectorAll('.cart')];
+          const state=cards.map(card=>{
+            const name=card.querySelector('h3')?.textContent.trim()||'';
+            const item=data.yemek?.[name];
+            const soldOut=!!(item&&item.available===false);
+            card.classList.toggle('stock-item-bitti',soldOut);
+            let badge=card.querySelector('.stock-bitti-badge');
+            if(soldOut){
+              if(!badge){badge=document.createElement('span');badge.className='stock-bitti-badge';badge.textContent='BİTİB';card.appendChild(badge);}
+            }else if(badge){badge.remove();}
+            return {card,soldOut};
+          });
+          state.sort((a,b)=>Number(b.soldOut)-Number(a.soldOut));
+          state.forEach(x=>container.appendChild(x.card));
+        }catch(e){}
+      }
       applyStock();
       if (!sessionStorage.getItem('hit_menu_yemek')) { sessionStorage.setItem('hit_menu_yemek','1'); fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_menu_yemek').catch(function(){}); }
     </script>
