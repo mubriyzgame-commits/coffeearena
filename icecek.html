@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>İçəcək Menyusu</title>
     <link rel="stylesheet" href="./icecek.css" />
+    <style>
+      .cart.stock-item-bitti{position:relative}
+      .stock-bitti-badge{position:absolute;top:10px;left:10px;z-index:5;background:rgba(0,0,0,.78);color:#fff;padding:7px 12px;border-radius:8px;font-weight:800;font-size:14px;letter-spacing:.4px;pointer-events:none}
+      .cart.stock-item-bitti img{filter:grayscale(.55) brightness(.72)}
+    </style>
   </head>
   <body>
     <header>
@@ -42,22 +47,26 @@
       const MENU_API='https://solitary-disk-196f.mubriyzgame.workers.dev';
       async function applyStock(){
         try{
-          const r=await fetch(MENU_API+'/api/menu');
+          const r=await fetch(MENU_API+'/api/menu',{cache:'no-store'});
           if(!r.ok)return;
           const data=await r.json();
-          document.querySelectorAll('.cart').forEach(card=>{
-            const name=card.querySelector('h3')?.textContent.trim();
-            const item=data.icecek?.[name];
-            if(item&&item.available===false) card.style.display='none';
-            else card.style.display='';
+          const container=document.querySelector('.carts');
+          const state=[...container.querySelectorAll('.cart')].map(card=>{
+            const name=card.querySelector('h3')?.textContent.trim()||'';
+            const soldOut=!!(data.icecek?.[name]&&data.icecek[name].available===false);
+            card.classList.toggle('stock-item-bitti',soldOut);
+            let badge=card.querySelector('.stock-bitti-badge');
+            if(soldOut){
+              if(!badge){badge=document.createElement('span');badge.className='stock-bitti-badge';badge.textContent='BİTİB';card.appendChild(badge);}
+            }else if(badge){badge.remove();}
+            return {card,soldOut};
           });
+          state.sort((a,b)=>Number(b.soldOut)-Number(a.soldOut));
+          state.forEach(x=>container.appendChild(x.card));
         }catch(e){}
       }
       applyStock();
-      if (!sessionStorage.getItem('hit_menu_icecek')) {
-        sessionStorage.setItem('hit_menu_icecek','1');
-        fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_menu_icecek').catch(function(){});
-      }
+      if(!sessionStorage.getItem('hit_menu_icecek')){sessionStorage.setItem('hit_menu_icecek','1');fetch('https://countapi.mileshilliard.com/api/v1/hit/coffeearena_menu_icecek').catch(()=>{});}
     </script>
   </body>
 </html>
