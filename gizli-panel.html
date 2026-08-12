@@ -17,27 +17,49 @@ header a{text-decoration:none;color:black;font-size:20px}
 <header><a href="menu-idare-v2.html" class="menu-kechid-btn">⚙️ Menyu idarə</a></header>
 <div class="panel"><h1>Sayt ziyarətləri</h1><div id="stats">Yüklənir...</div><div id="status" class="status"></div></div>
 <script>
-const NS='coffeearena';
-const BASE='https://counterapi.com/api/'+encodeURIComponent(NS)+'/view/';
+const BASE='https://countapi.mileshilliard.com/api/v1/get/';
 const groups=[
-['Əsas statistika',[['Ümumi','index'],['🍔 Yeməklər','menu_yemek'],['🥤 İçəcəklər','menu_icecek'],['☕ Kofelər','menu_coffee'],['📱 Telefon','type_phone'],['📱 Planşet','type_tablet'],['💻 PC','type_pc'],['Android','os_android'],['iOS / iPadOS','os_ios'],['Windows','os_windows'],['macOS','os_macos'],['Linux','os_linux']]],
-['Telefon / cihaz markaları',[['iPhone','brand_iphone'],['iPad','brand_ipad'],['Samsung','brand_samsung'],['Xiaomi / Redmi / Poco','brand_xiaomi'],['Huawei / Honor','brand_huawei'],['OPPO','brand_oppo'],['vivo','brand_vivo'],['OnePlus','brand_oneplus'],['Google Pixel','brand_google'],['Motorola','brand_motorola'],['Sony','brand_sony'],['Nokia','brand_nokia'],['PC','brand_pc'],['Apple PC','brand_apple_pc'],['Digər','brand_other']]]
+['Əsas statistika',[
+['Ümumi','index'],['🍔 Yeməklər','menu_yemek'],['🥤 İçəcəklər','menu_icecek'],['☕ Kofelər','menu_coffee'],
+['📱 Telefon','type_phone'],['📱 Planşet','type_tablet'],['💻 PC','type_pc'],['Android','os_android'],['iOS / iPadOS','os_ios'],['Windows','os_windows'],['macOS','os_macos'],['Linux','os_linux']
+]],
+['Telefon / cihaz markaları',[
+['iPhone','brand_iphone'],['iPad','brand_ipad'],['Samsung','brand_samsung'],['Xiaomi / Redmi / Poco','brand_xiaomi'],['Huawei / Honor','brand_huawei'],['OPPO','brand_oppo'],['vivo','brand_vivo'],['OnePlus','brand_oneplus'],['Google Pixel','brand_google'],['Motorola','brand_motorola'],['Sony','brand_sony'],['Nokia','brand_nokia'],['PC','brand_pc'],['Apple PC','brand_apple_pc'],['Digər','brand_other']
+]]
 ];
+
 async function get(key){
   try{
-    const r=await fetch(BASE+encodeURIComponent(key)+'?readOnly=true',{cache:'no-store'});
+    const r=await fetch(BASE+encodeURIComponent('coffeearena_'+key)+'?t='+Date.now(),{cache:'no-store'});
     if(!r.ok)return {value:0,ok:false};
     const d=await r.json();
-    return {value:Number.isFinite(Number(d.value))?Number(d.value):0,ok:true};
-  }catch(e){return {value:0,ok:false};}
+    const n=Number(d.value);
+    return {value:Number.isFinite(n)?n:0,ok:true};
+  }catch(e){
+    return {value:0,ok:false};
+  }
 }
+
 async function load(){
   const all=groups.flatMap(([group,items])=>items.map(([label,key])=>({group,label,key})));
   const results=await Promise.all(all.map(async x=>({...x,...await get(x.key)})));
-  let html='';let failed=0;
-  for(const [group] of groups){html+=`<h2>${group}</h2>`;for(const x of results.filter(x=>x.group===group)){if(!x.ok)failed++;html+=`<div class="row"><span>${x.label}</span><span class="count">${x.ok?x.value:'—'}</span></div>`}}
+  let html='';
+  let failed=0;
+
+  for(const [group] of groups){
+    html+=`<h2>${group}</h2>`;
+    for(const x of results.filter(x=>x.group===group)){
+      if(!x.ok)failed++;
+      html+=`<div class="row"><span>${x.label}</span><span class="count">${x.ok?x.value:'—'}</span></div>`;
+    }
+  }
+
   document.getElementById('stats').innerHTML=html;
   document.getElementById('status').textContent=`${results.length-failed}/${results.length} sayğac oxundu • ${new Date().toLocaleTimeString('az-AZ')}`;
 }
-load();setInterval(load,5000);
-</script></body></html>
+
+load();
+setInterval(load,5000);
+</script>
+</body>
+</html>
