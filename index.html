@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <h1 class="text">Coffee Arenaya xoş gəlmisiniz!</h1>
+      <h1 class="text" id="welcomeText">Coffee Arenaya xoş gəlmisiniz!</h1>
       <h2 class="text">Seçiminizi edin</h2>
     </header>
     <div class="carts">
@@ -17,6 +17,21 @@
       <a href="./coffee menusu.html"><div class="cart"><h1>Kofelər</h1></div></a>
     </div>
     <script>
+      // 3 clicks on the welcome text open the creator page.
+      let welcomeClicks = 0;
+      let welcomeClickTimer;
+      document.getElementById('welcomeText').addEventListener('click', () => {
+        welcomeClicks++;
+        clearTimeout(welcomeClickTimer);
+        welcomeClickTimer = setTimeout(() => {
+          welcomeClicks = 0;
+        }, 900);
+        if (welcomeClicks === 3) {
+          welcomeClicks = 0;
+          window.location.href = './created-by.html';
+        }
+      });
+
       // Grok-style counter: read current value, then increment it by 1.
       // Session storage prevents a back-navigation/reload from counting again in the same session.
       const API = 'https://countapi.mileshilliard.com/api/v1';
