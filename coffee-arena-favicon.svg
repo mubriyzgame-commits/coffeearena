@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <defs>
+    <clipPath id="circle">
+      <circle cx="540" cy="540" r="525"/>
+    </clipPath>
+  </defs>
+  <image href="./8bed79f848dd683a92b427b634a780b3~tplv-tiktokx-cropcenter_1080_1080.jpeg"
+         x="0" y="0" width="1080" height="1080" preserveAspectRatio="xMidYMid slice"
+         clip-path="url(#circle)"/>
+</svg>
