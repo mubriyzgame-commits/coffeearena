@@ -18,7 +18,6 @@
       <a href="./coffee menusu.html"><div class="cart"><h1>Kofelər</h1></div></a>
     </div>
     <script>
-      // 3 clicks on the welcome text open the creator page.
       let welcomeClicks = 0;
       let welcomeClickTimer;
       document.getElementById('welcomeText').addEventListener('click', () => {
@@ -33,8 +32,6 @@
         }
       });
 
-      // Grok-style counter: read current value, then increment it by 1.
-      // Session storage prevents a back-navigation/reload from counting again in the same session.
       const API = 'https://countapi.mileshilliard.com/api/v1';
       async function plusOne(key) {
         const k = 'counted_' + key;
